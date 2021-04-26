@@ -1,12 +1,18 @@
 import { NgModule } from '@angular/core';
 import { CoreModule } from '../../core/core.module';
 import { EmbedPodcastComponent } from './embed-podcast.component';
-import { EpisodeComponentComponent } from './episode-component/episode-component.component';
+import { EpisodeComponent } from './episode/episode.component';
+import { EllipsisModule } from 'ngx-ellipsis';
+import { SeasonComponent } from './season/season.component';
 
 @NgModule({
-  declarations: [EmbedPodcastComponent, EpisodeComponentComponent],
+  declarations: [EmbedPodcastComponent, EpisodeComponent, SeasonComponent],
+  exports: [
+    EmbedPodcastComponent
+  ],
   imports: [
-    CoreModule
+    CoreModule,
+    EllipsisModule
   ]
 })
 export class EmbedPodcastModule {

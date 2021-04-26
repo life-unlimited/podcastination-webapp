@@ -20,6 +20,8 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatSliderModule } from '@angular/material/slider';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 
 const materialModules = [
@@ -33,6 +35,8 @@ const materialModules = [
   MatProgressSpinnerModule,
   MatRippleModule,
   MatSelectModule,
+  MatSliderModule,
+  MatProgressBarModule,
   MatSnackBarModule,
   MatFormFieldModule,
   MatButtonToggleModule,
