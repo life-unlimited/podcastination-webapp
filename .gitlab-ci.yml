@@ -26,7 +26,7 @@ webapp:build:
 
 webapp:test:karma:
   stage: test
-  image: trion/ng-cli-e2e:${ANGULAR_CLI_VERSION}
+  image: trion/ng-cli-karma:${ANGULAR_CLI_VERSION}
   needs:
     - job: webapp:build
       artifacts: true
