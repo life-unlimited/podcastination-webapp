@@ -23,6 +23,8 @@ webapp:build:
       - dist/
   tags:
     - docker
+  only:
+    - master
 
 webapp:test:karma:
   stage: test
@@ -42,3 +44,5 @@ webapp:test:karma:
     expire_in: 30 day
   tags:
     - docker
+  only:
+    - master
