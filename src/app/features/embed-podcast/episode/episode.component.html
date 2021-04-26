@@ -1,4 +1,4 @@
-<div class="container row">
+<div class="container row" *ngIf="data">
   <div class="playback-controls">
     <div (click)="onPlayClicked($event)" *ngIf="!isPlaying" class="playback-control clickable">
       <mat-icon>play_arrow</mat-icon>
@@ -7,7 +7,7 @@
       <mat-icon>pause_arrow</mat-icon>
     </div>
   </div>
-  <div class="content-container row">
+  <div class="content-container gradient-bg row">
     <div class="content">
       <div class="episode-information row">
         <div class="info-column info-left">
@@ -15,7 +15,7 @@
             <div class="title-container row">
               <div class="title">{{ data?.episode.title }}</div>
               <a [href]="data?.episode.youTubeUrl" *ngIf="data?.episode.youTubeUrl">
-                <div class="youTubeUrl"
+                <div class="yt-url"
                      *ngIf="data?.episode.youTubeUrl"
                      matTooltip="Diese Episode enthält einen YouTube-Link. Klicke, um auf YouTube weitergeleitet zu werden."
                      matTooltipShowDelay=500

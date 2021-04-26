@@ -1,28 +1,31 @@
 @import "src/styles/misc";
 
-$component-height: 75px;
+$min-component-height: 75px;
 
 .overlay-control {
   pointer-events: all;
 }
 
 .container {
-  background: linear-gradient( 90deg, #f4f4f4, whitesmoke );
-  height: $component-height;
+  display: flex;
+  flex-direction: row;
+  min-height: $min-component-height;
+  width: 100%;
   z-index: 1;
 }
 
 .current-time-bar {
   background-color: lightgray;
-  height: $component-height;
+  min-height: $min-component-height;
+  height: 100%;
   position: absolute;
   z-index: 10;
 }
 
 .content-container {
-  height: $component-height;
-  width: 100%;
+  min-height: $min-component-height;
   position: relative;
+  flex-grow: 1;
 }
 
 .content {
@@ -60,6 +63,22 @@ $component-height: 75px;
   justify-content: space-between;
   height: 100%;
   gap: 10%;
+  width: 100%;
+}
+
+.episode-information > * {
+  min-width: 0;
+}
+
+.info-left {
+  //max-width: 75%;
+  flex-shrink: 500;
+}
+
+.info-right {
+  align-content: end;
+  align-items: flex-end;
+  max-width: 450px;
 }
 
 .info-column {
@@ -80,13 +99,13 @@ $component-height: 75px;
   font-weight: 500;
 }
 
-.youTubeUrl {
+.yt-url {
   @extend .overlay-control;
   display: flex;
   align-items: center;
 }
 
-.youTubeUrl mat-icon {
+.yt-url mat-icon {
   font-size: 1.4em;
   width: 1em;
   height: 1em;
@@ -94,16 +113,6 @@ $component-height: 75px;
 
 .misc-info-row {
   gap: 5px;
-}
-
-.info-left {
-}
-
-.info-right {
-  align-content: end;
-  align-items: flex-end;
-  width: 50%;
-  max-width: 450px;
 }
 
 .description {
@@ -114,8 +123,8 @@ $component-height: 75px;
 
 .duration {
   display: flex;
-  align-items: center;
-  align-content: center;
+  justify-content: flex-end;
+  min-width: 6em;
 }
 
 .duration mat-progress-bar {

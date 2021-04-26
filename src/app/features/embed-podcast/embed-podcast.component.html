@@ -1,9 +1,4 @@
-<div class="content">
-  <app-episode-component></app-episode-component>
-  <app-episode-component></app-episode-component>
-  <app-episode-component></app-episode-component>
-  <app-episode-component></app-episode-component>
-  <app-episode-component></app-episode-component>
-  <app-episode-component></app-episode-component>
-  <app-episode-component></app-episode-component>
+<div class="content" *ngIf="podcast">
+  <app-embed-podcast-no-seasons *ngIf="seasons && seasons.length === 0"></app-embed-podcast-no-seasons>
+  <app-embed-podcast-season *ngFor="let season of seasons" [season]="season"></app-embed-podcast-season>
 </div>

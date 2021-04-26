@@ -12,13 +12,19 @@ export function prettifyDuration(ms: number): string {
   if (hours > 0) {
     result += hours + ':';
   }
-  if (minutes < 10) {
-    result += '0';
-  }
-  result += minutes + ':';
-  if (seconds < 10) {
-    result += '0';
-  }
-  result += seconds;
+  result += `${ fillLessThanTenWith(minutes, '0') }:${ fillLessThanTenWith(seconds, '0') }`;
   return result;
+}
+
+/**
+ * Prettifies the given date to format yyyy-MM-DD.
+ *
+ * @param date The date.
+ */
+export function prettifyDate(date: Date): string {
+  return `${ fillLessThanTenWith(date.getDay(), '0') }.${ fillLessThanTenWith(date.getMonth() + 1, '0') }.${ date.getFullYear() }`;
+}
+
+function fillLessThanTenWith(n: number, fill: string): string {
+  return n < 10 ? fill + n : n.toString();
 }

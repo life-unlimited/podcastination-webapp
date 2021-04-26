@@ -1,0 +1,24 @@
+@import "src/styles/misc";
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.season-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.season {
+  border: solid lightgray 1px;
+  border-radius: 8px;
+  padding: 7px;
+}
+
+.season-subtitle {
+  color: grey;
+  text-overflow: ellipsis;
+}
