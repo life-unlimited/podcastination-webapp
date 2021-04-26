@@ -14,7 +14,6 @@ webapp:build:
   stage: build
   image: trion/ng-cli-e2e:${ANGULAR_CLI_VERSION}
   before_script:
-    - cd webapp
     - npm ci --cache .npm --prefer-offline
   script:
     - ng build --prod
@@ -33,7 +32,6 @@ webapp:test:karma:
       artifacts: true
   allow_failure: false
   before_script:
-    - cd webapp
     - npm ci --cache .npm --prefer-offline
   script:
     - ng test --code-coverage --progress false --watch false
