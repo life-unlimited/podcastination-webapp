@@ -1,0 +1,46 @@
+variables:
+  ANGULAR_CLI_VERSION: 11.0.0
+
+cache:
+  key: ${CI_COMMIT_REF_SLUG}
+  paths:
+    - node_modules/
+
+stages:
+  - build
+  - test
+
+webapp:build:
+  stage: build
+  image: trion/ng-cli-e2e:${ANGULAR_CLI_VERSION}
+  before_script:
+    - cd webapp
+    - npm ci --cache .npm --prefer-offline
+  script:
+    - ng build --prod
+  artifacts:
+    expire_in: 7 day
+    paths:
+      - dist/
+  tags:
+    - docker
+
+webapp:test:karma:
+  stage: test
+  image: trion/ng-cli-e2e:${ANGULAR_CLI_VERSION}
+  needs:
+    - job: webapp:build
+      artifacts: true
+  allow_failure: false
+  before_script:
+    - cd webapp
+    - npm ci --cache .npm --prefer-offline
+  script:
+    - ng test --code-coverage --progress false --watch false
+  coverage: '/Statements.*?(\d+(?:\.\d+)?)%/'
+  artifacts:
+    paths:
+      - coverage/
+    expire_in: 30 day
+  tags:
+    - docker
