@@ -12,7 +12,7 @@ stages:
 
 webapp:build:
   stage: build
-  image: trion/ng-cli-e2e:${ANGULAR_CLI_VERSION}
+  image: trion/ng-cli-karma:${ANGULAR_CLI_VERSION}
   before_script:
     - npm ci --cache .npm --prefer-offline
   script:
