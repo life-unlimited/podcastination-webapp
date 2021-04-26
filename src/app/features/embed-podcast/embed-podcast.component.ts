@@ -26,13 +26,12 @@ export class EmbedPodcastComponent implements OnInit, OnDestroy {
   private s: Subscription[] = [];
   podcast: Podcast;
   seasons: Season[];
+  podcastKey: string;
 
   ngOnInit(): void {
     this.s.push(this.route.paramMap.subscribe(params => {
       const key = params.get('key');
-      if (!key) {
-        throw new Error('Missing podcast key.');
-      }
+      this.podcastKey = key;
       this.loadPodcast(key);
     }));
   }

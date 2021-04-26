@@ -2,6 +2,7 @@ import { ChangeDetectorRef, Component, Input, NgZone, OnChanges, OnInit, SimpleC
 import { Episode } from '../../../core/models/episode';
 import { Season } from '../../../core/models/seasons';
 import { prettifyDuration } from '../../../core/utils/time-utils';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-embed-podcast-episode',
@@ -31,12 +32,10 @@ export class EpisodeComponent implements OnInit, OnChanges {
       this.changeDetectorRef.detectChanges();
     });
 
-    // TODO: remove
-    this.load('https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3');
+    this.load(`${ environment.staticUrl }/${ this.data.episode.mp3Location }`);
     this.player.onloadedmetadata = () => {
       this.isLoaded = true;
       this.changeDetectorRef.detectChanges();
-      console.log('loaded metadata with duration ' + this.player.duration);
     };
   }
 

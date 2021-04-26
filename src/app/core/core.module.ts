@@ -11,11 +11,11 @@ import { NotFoundComponent } from './components/not-found/not-found.component';
     EmbedComponent,
     NotFoundComponent
   ],
-    imports: [
-        CommonModule,
-        AngularMaterialModule,
-        RouterModule
-    ],
+  imports: [
+    CommonModule,
+    AngularMaterialModule,
+    RouterModule
+  ],
   exports: [
     CommonModule,
     AngularMaterialModule
