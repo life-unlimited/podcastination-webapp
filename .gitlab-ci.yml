@@ -87,7 +87,7 @@ deploy:
     - echo "$SSH_PRIVATE_KEY" >> ~/.ssh/id_rsa
     - chmod 600 ~/.ssh/id_rsa
     - echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
-    - rsync -rav -e 'ssh -p 44' --progress --delete dist/podcastination-webapp gitlab@lu-church.de:/var/www/podcastination/
+    - rsync -rav -e 'ssh -p 44' --progress --delete dist/podcastination-webapp/ gitlab@lu-church.de:/var/www/podcastination/
   tags:
     - docker
   only:
