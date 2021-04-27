@@ -4,6 +4,7 @@ variables:
 stages:
   - install
   - build_and_test
+  - deploy
 
 cache: &global_cache
   key: ${CI_COMMIT_REF_SLUG}
@@ -25,13 +26,13 @@ webapp:install:
   tags:
     - docker
 
-
 webapp:build:
   stage: build_and_test
   image: trion/ng-cli-karma:${ANGULAR_CLI_VERSION}
   needs:
     - job: webapp:install
       artifacts: true
+  allow_failure: false
   script:
     - npm i --cache .npm --prefer-offline
     - ng build --prod
@@ -67,5 +68,29 @@ webapp:test:karma:
   only:
     - master
     - develop
+  cache:
+    <<: *global_cache
+
+webapp:deploy:
+  stage: deploy
+  image: alpine
+  needs:
+    - job: webapp:install
+      artifacts: true
+    - job: webapp:build
+      artifacts: true
+    - job: webapp:test:karma
+  allow_failure: false
+  script:
+    - apk add --no-cache rsync openssh
+    - mkdir -p ~/.ssh
+    - echo "$SSH_PRIVATE_KEY" >> ~/.ssh/id_rsa
+    - chmod 600 ~/.ssh/id_rsa
+    - echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
+    - rsync -rav --delete dist/ gitlab@lu-church.de:/var/www/podcastination/
+  tags:
+    - docker
+  only:
+    - master
   cache:
     <<: *global_cache
