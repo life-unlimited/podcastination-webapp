@@ -94,3 +94,6 @@ deploy:
     - master
   cache:
     <<: *global_cache
+  environment:
+    name: production
+    url: https://podcast.lu-church.de
