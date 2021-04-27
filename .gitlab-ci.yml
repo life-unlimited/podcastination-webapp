@@ -1,21 +1,40 @@
 variables:
   ANGULAR_CLI_VERSION: 11.0.0
 
-cache:
+stages:
+  - install
+  - build_and_test
+  - deploy
+
+cache: &global_cache
   key: ${CI_COMMIT_REF_SLUG}
   paths:
-    - node_modules/
+    - .npm/
+  policy: pull
 
-stages:
-  - build
-  - test
+webapp:install:
+  stage: install
+  image: trion/ng-cli-karma:${ANGULAR_CLI_VERSION}
+  script:
+    - npm i --cache .npm --prefer-offline
+  cache:
+    <<: *global_cache
+    policy: push
+  only:
+    - master
+    - develop
+  tags:
+    - docker
 
 webapp:build:
-  stage: build
+  stage: build_and_test
   image: trion/ng-cli-karma:${ANGULAR_CLI_VERSION}
-  before_script:
-    - npm ci --cache .npm --prefer-offline
+  needs:
+    - job: webapp:install
+      artifacts: true
+  allow_failure: false
   script:
+    - npm i --cache .npm --prefer-offline
     - ng build --prod
   artifacts:
     expire_in: 7 day
@@ -23,17 +42,21 @@ webapp:build:
       - dist/
   tags:
     - docker
+  only:
+    - master
+    - develop
+  cache:
+    <<: *global_cache
 
 webapp:test:karma:
-  stage: test
+  stage: build_and_test
   image: trion/ng-cli-karma:${ANGULAR_CLI_VERSION}
   needs:
-    - job: webapp:build
+    - job: webapp:install
       artifacts: true
   allow_failure: false
-  before_script:
-    - npm ci --cache .npm --prefer-offline
   script:
+    - npm i --cache .npm --prefer-offline
     - ng test --code-coverage --progress false --watch false
   coverage: '/Statements.*?(\d+(?:\.\d+)?)%/'
   artifacts:
@@ -42,3 +65,32 @@ webapp:test:karma:
     expire_in: 30 day
   tags:
     - docker
+  only:
+    - master
+    - develop
+  cache:
+    <<: *global_cache
+
+webapp:deploy:
+  stage: deploy
+  image: alpine
+  needs:
+    - job: webapp:install
+      artifacts: true
+    - job: webapp:build
+      artifacts: true
+    - job: webapp:test:karma
+  allow_failure: false
+  script:
+    - apk add --no-cache rsync openssh
+    - mkdir -p ~/.ssh
+    - echo "$SSH_PRIVATE_KEY" >> ~/.ssh/id_rsa
+    - chmod 600 ~/.ssh/id_rsa
+    - echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
+    - rsync -rav --delete dist/ gitlab@lu-church.de:/var/www/podcastination/
+  tags:
+    - docker
+  only:
+    - master
+  cache:
+    <<: *global_cache
