@@ -12,7 +12,7 @@ cache: &global_cache
     - .npm/
   policy: pull
 
-webapp:install:
+install:
   stage: install
   image: trion/ng-cli-karma:${ANGULAR_CLI_VERSION}
   script:
@@ -26,11 +26,11 @@ webapp:install:
   tags:
     - docker
 
-webapp:build:
+build:
   stage: build_and_test
   image: trion/ng-cli-karma:${ANGULAR_CLI_VERSION}
   needs:
-    - job: webapp:install
+    - job: install
       artifacts: true
   allow_failure: false
   script:
@@ -48,11 +48,11 @@ webapp:build:
   cache:
     <<: *global_cache
 
-webapp:test:karma:
+test:karma:
   stage: build_and_test
   image: trion/ng-cli-karma:${ANGULAR_CLI_VERSION}
   needs:
-    - job: webapp:install
+    - job: install
       artifacts: true
   allow_failure: false
   script:
@@ -71,15 +71,15 @@ webapp:test:karma:
   cache:
     <<: *global_cache
 
-webapp:deploy:
+deploy:
   stage: deploy
   image: alpine
   needs:
-    - job: webapp:install
+    - job: install
       artifacts: true
-    - job: webapp:build
+    - job: build
       artifacts: true
-    - job: webapp:test:karma
+    - job: test:karma
   allow_failure: false
   script:
     - apk add --no-cache rsync openssh
@@ -87,7 +87,7 @@ webapp:deploy:
     - echo "$SSH_PRIVATE_KEY" >> ~/.ssh/id_rsa
     - chmod 600 ~/.ssh/id_rsa
     - echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
-    - rsync -rav --delete dist/ gitlab@lu-church.de:/var/www/podcastination/
+    - rsync -rav --delete dist/podcastination-webapp gitlab@lu-church.de:/var/www/podcastination/
   tags:
     - docker
   only:
