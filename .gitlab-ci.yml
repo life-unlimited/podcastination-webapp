@@ -6,9 +6,7 @@ stages:
   - build_and_test
 
 cache: &global_cache
-  key:
-    files:
-      - package-lock.json
+  key: ${CI_COMMIT_REF_SLUG}
   paths:
     - .npm/
     - node-modules/
@@ -21,7 +19,7 @@ webapp:install:
     - npm i
   cache:
     <<: *global_cache
-    policy: pull-push
+    policy: push
   only:
     - master
     - develop
