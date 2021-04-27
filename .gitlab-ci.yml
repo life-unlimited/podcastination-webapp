@@ -11,15 +11,18 @@ webapp:install:
   script:
     - npm ci --cache .npm --prefer-offline
   cache:
-    key:
-      files:
-        - package-lock.json
+    key: ${CI_COMMIT_REF_SLUG}
+    #    key:
+    #      files:
+    #        - package-lock.json
     paths:
       - node_modules/
     policy: push
   only:
     - master
     - develop
+  tags:
+    - docker
 
 
 webapp:build:
