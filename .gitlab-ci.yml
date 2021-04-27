@@ -32,6 +32,7 @@ webapp:build:
     - job: webapp:install
       artifacts: true
   script:
+    - npm ci --also=dev
     - ng build --prod
   artifacts:
     expire_in: 7 day
