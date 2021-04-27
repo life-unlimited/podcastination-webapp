@@ -18,7 +18,7 @@ webapp:install:
   stage: install
   image: trion/ng-cli-karma:${ANGULAR_CLI_VERSION}
   script:
-    - npm ci --cache .npm --prefer-offline
+    - npm i
   cache:
     <<: *global_cache
     policy: pull-push
@@ -36,7 +36,7 @@ webapp:build:
     - job: webapp:install
       artifacts: true
   script:
-    - npm ci --cache .npm --prefer-offline
+    - npm i
     - ng build --prod
   artifacts:
     expire_in: 7 day
@@ -58,7 +58,7 @@ webapp:test:karma:
       artifacts: true
   allow_failure: false
   script:
-    - npm ci --cache .npm --prefer-offline
+    - npm i
     - ng test --code-coverage --progress false --watch false
   coverage: '/Statements.*?(\d+(?:\.\d+)?)%/'
   artifacts:
