@@ -5,18 +5,21 @@ stages:
   - install
   - build_and_test
 
+cache: &global_cache
+  key:
+    files:
+      - package-lock.json
+  paths:
+    - .npm/
+  policy: pull
+
 webapp:install:
   stage: install
   image: trion/ng-cli-karma:${ANGULAR_CLI_VERSION}
   script:
-    - npm ci --also=dev
+    - npm ci --cache .npm --prefer-offline
   cache:
-    key: ${CI_COMMIT_REF_SLUG}
-    #    key:
-    #      files:
-    #        - package-lock.json
-    paths:
-      - node_modules/
+    <<: *global_cache
     policy: push
   only:
     - master
@@ -32,7 +35,7 @@ webapp:build:
     - job: webapp:install
       artifacts: true
   script:
-    - npm ci --also=dev
+    - npm ci --cache .npm --prefer-offline
     - ng build --prod
   artifacts:
     expire_in: 7 day
@@ -52,6 +55,7 @@ webapp:test:karma:
       artifacts: true
   allow_failure: false
   script:
+    - npm ci --cache .npm --prefer-offline
     - ng test --code-coverage --progress false --watch false
   coverage: '/Statements.*?(\d+(?:\.\d+)?)%/'
   artifacts:
