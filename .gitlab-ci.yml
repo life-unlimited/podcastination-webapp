@@ -9,7 +9,7 @@ webapp:install:
   stage: install
   image: trion/ng-cli-karma:${ANGULAR_CLI_VERSION}
   script:
-    - npm ci
+    - npm ci --also=dev
   cache:
     key: ${CI_COMMIT_REF_SLUG}
     #    key:
