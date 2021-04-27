@@ -16,7 +16,7 @@ webapp:install:
         - package-lock.json
     paths:
       - node_modules/
-    policy: pull
+    policy: push
   only:
     - master
     - develop
