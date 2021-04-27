@@ -1,20 +1,33 @@
 variables:
   ANGULAR_CLI_VERSION: 11.0.0
 
-cache:
-  key: ${CI_COMMIT_REF_SLUG}
-  paths:
-    - node_modules/
-
 stages:
-  - build
-  - test
+  - install
+  - build_and_test
+
+webapp:install:
+  stage: install
+  image: trion/ng-cli-karma:${ANGULAR_CLI_VERSION}
+  script:
+    - npm ci --cache .npm --prefer-offline
+  cache:
+    key:
+      files:
+        - package-lock.json
+    paths:
+      - node_modules/
+    policy: pull
+  only:
+    - master
+    - develop
+
 
 webapp:build:
-  stage: build
+  stage: build_and_test
   image: trion/ng-cli-karma:${ANGULAR_CLI_VERSION}
-  before_script:
-    - npm ci --cache .npm --prefer-offline
+  needs:
+    - job: webapp:install
+      artifacts: true
   script:
     - ng build --prod
   artifacts:
@@ -25,16 +38,15 @@ webapp:build:
     - docker
   only:
     - master
+    - develop
 
 webapp:test:karma:
-  stage: test
+  stage: build_and_test
   image: trion/ng-cli-karma:${ANGULAR_CLI_VERSION}
   needs:
-    - job: webapp:build
+    - job: webapp:install
       artifacts: true
   allow_failure: false
-  before_script:
-    - npm ci --cache .npm --prefer-offline
   script:
     - ng test --code-coverage --progress false --watch false
   coverage: '/Statements.*?(\d+(?:\.\d+)?)%/'
@@ -46,3 +58,4 @@ webapp:test:karma:
     - docker
   only:
     - master
+    - develop
