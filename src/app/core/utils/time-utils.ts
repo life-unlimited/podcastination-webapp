@@ -22,7 +22,7 @@ export function prettifyDuration(ms: number): string {
  * @param date The date.
  */
 export function prettifyDate(date: Date): string {
-  return `${ fillLessThanTenWith(date.getDay(), '0') }.${ fillLessThanTenWith(date.getMonth() + 1, '0') }.${ date.getFullYear() }`;
+  return `${ fillLessThanTenWith(date.getDate(), '0') }.${ fillLessThanTenWith(date.getMonth() + 1, '0') }.${ date.getFullYear() }`;
 }
 
 function fillLessThanTenWith(n: number, fill: string): string {
