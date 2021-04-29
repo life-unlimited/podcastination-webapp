@@ -3,6 +3,6 @@
  */
 export const environment = {
   production: true,
-  apiUrl: 'http://localhost:8000',
-  staticUrl: 'http://localhost:8000/static'
+  apiUrl: 'https://podcast.lu-church.de/s',
+  staticUrl: 'https://podcast.lu-church.de/s/static'
 };
