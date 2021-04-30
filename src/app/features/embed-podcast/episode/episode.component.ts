@@ -80,7 +80,6 @@ export class EpisodeComponent implements OnInit {
   }
 
   onSeekbarClicked(offsetWidth: number, seekbarWidth: number): void {
-    console.log('seek clicked');
     this.seek(offsetWidth / seekbarWidth);
   }
 
