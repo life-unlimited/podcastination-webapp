@@ -30,6 +30,13 @@
             <div class="author">{{ data?.episode.author }}</div>
             <div><span>&#183;</span></div>
             <div class="date">{{ data?.episode.date }}</div>
+            <div><span>&#183;</span></div>
+            <div class="download">
+              <a [href]="getFullMp3Url()"
+                 class="clickable overlay-control"
+                 download>
+                Download</a>
+            </div>
           </div>
         </div>
 
@@ -43,10 +50,10 @@
             {{ data?.episode.description }}
           </div>
           <div class="duration">
-            <mat-progress-bar *ngIf="!isLoaded" mode="indeterminate"></mat-progress-bar>
-            <div *ngIf="isLoaded">
+            <mat-progress-bar *ngIf="isLoading" mode="indeterminate"></mat-progress-bar>
+            <div *ngIf="!isLoading">
               <ng-container *ngIf="!stopped">{{ prettifyDuration(player.currentTime * 1000) }} /</ng-container>
-              {{ prettifyDuration(player.duration * 1000) }}
+              {{ prettifyDuration((player.duration || data.episode.mp3Length) * 1000) }}
             </div>
           </div>
         </div>

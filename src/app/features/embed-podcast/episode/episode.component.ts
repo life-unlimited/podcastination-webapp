@@ -1,17 +1,23 @@
-import { ChangeDetectorRef, Component, Input, NgZone, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { Episode } from '../../../core/models/episode';
 import { Season } from '../../../core/models/seasons';
 import { prettifyDuration } from '../../../core/utils/time-utils';
 import { environment } from '../../../../environments/environment';
 
+/**
+ * Episode row with integrated audio player.
+ *
+ * @author Lennart Altenhof
+ * @version 1.1
+ */
 @Component({
   selector: 'app-embed-podcast-episode',
   templateUrl: './episode.component.html',
   styleUrls: ['./episode.component.scss']
 })
-export class EpisodeComponent implements OnInit, OnChanges {
+export class EpisodeComponent implements OnInit {
 
-  constructor(private changeDetectorRef: ChangeDetectorRef, private zone: NgZone) {
+  constructor(private changeDetectorRef: ChangeDetectorRef) {
   }
 
   player = new Audio();
@@ -24,33 +30,46 @@ export class EpisodeComponent implements OnInit, OnChanges {
     season: Season
   };
 
-  isLoaded = false;
+  isLoading = false;
 
   ngOnInit(): void {
-    this.player.addEventListener('timeupdate', (currentTime) => {
+    this.player.addEventListener('timeupdate', () => {
       this.positionRelative = this.player.currentTime / this.player.duration;
       this.changeDetectorRef.detectChanges();
     });
-
-    this.load(`${ environment.staticUrl }/${ this.data.episode.mp3Location }`);
-    this.player.onloadedmetadata = () => {
-      this.isLoaded = true;
-      this.changeDetectorRef.detectChanges();
-    };
   }
 
   prettifyDuration(ms: number): string {
     return prettifyDuration(ms);
   }
 
+  /**
+   * Loads and plays the mp3.
+   */
   private stream(): void {
-    this.player.play().then(() => {
-      this.isPlaying = true;
-    }).catch(error => {
-      // We expect the error because for whatever reason we always get one.
-      console.log(error);
-      this.isPlaying = true;
-    });
+    this.isLoading = true;
+    this.load(this.getFullMp3Url());
+    this.player.onloadedmetadata = () => {
+      this.isLoading = false;
+      this.changeDetectorRef.detectChanges();
+      this.player.play().then(() => {
+        this.isPlaying = true;
+      }).catch(error => {
+        // We expect the error because for whatever reason we always get one.
+        console.log(error);
+        this.isPlaying = true;
+      });
+    };
+  }
+
+  /**
+   * Returns the full current episode's mp3 location.
+   */
+  getFullMp3Url(): string {
+    if (!this.data) {
+      return undefined;
+    }
+    return `${ environment.staticUrl }/${ this.data.episode.mp3Location }`;
   }
 
   onPlayClicked(event: MouseEvent): void {
@@ -71,7 +90,6 @@ export class EpisodeComponent implements OnInit, OnChanges {
   }
 
   onSeekbarClicked(offsetWidth: number, seekbarWidth: number): void {
-    console.log('seek clicked');
     this.seek(offsetWidth / seekbarWidth);
   }
 
@@ -102,11 +120,4 @@ export class EpisodeComponent implements OnInit, OnChanges {
     this.player.src = mp3Url;
     this.player.load();
   }
-
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes.data) {
-      this.load('https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3');
-    }
-  }
-
 }
