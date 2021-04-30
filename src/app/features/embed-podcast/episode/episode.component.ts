@@ -48,7 +48,7 @@ export class EpisodeComponent implements OnInit {
    */
   private stream(): void {
     this.isLoading = true;
-    this.load(`${ environment.staticUrl }/${ this.data.episode.mp3Location }`);
+    this.load(this.getFullMp3Url());
     this.player.onloadedmetadata = () => {
       this.isLoading = false;
       this.changeDetectorRef.detectChanges();
@@ -60,6 +60,16 @@ export class EpisodeComponent implements OnInit {
         this.isPlaying = true;
       });
     };
+  }
+
+  /**
+   * Returns the full current episode's mp3 location.
+   */
+  getFullMp3Url(): string {
+    if (!this.data) {
+      return undefined;
+    }
+    return `${ environment.staticUrl }/${ this.data.episode.mp3Location }`;
   }
 
   onPlayClicked(event: MouseEvent): void {

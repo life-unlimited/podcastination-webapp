@@ -30,6 +30,13 @@
             <div class="author">{{ data?.episode.author }}</div>
             <div><span>&#183;</span></div>
             <div class="date">{{ data?.episode.date }}</div>
+            <div><span>&#183;</span></div>
+            <div class="download">
+              <a [href]="getFullMp3Url()"
+                 class="clickable overlay-control"
+                 download>
+                Download</a>
+            </div>
           </div>
         </div>
 
