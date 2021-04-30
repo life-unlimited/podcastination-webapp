@@ -112,6 +112,7 @@ $min-component-height: 75px;
 }
 
 .misc-info-row {
+  flex-wrap: wrap;
   gap: 5px;
 }
 
@@ -135,6 +136,7 @@ $min-component-height: 75px;
 
 .author {
   font-style: italic;
+  white-space: nowrap;
 }
 
 .download {
