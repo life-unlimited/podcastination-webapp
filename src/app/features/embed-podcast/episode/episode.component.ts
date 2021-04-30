@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, Input, NgZone, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { Episode } from '../../../core/models/episode';
 import { Season } from '../../../core/models/seasons';
 import { prettifyDuration } from '../../../core/utils/time-utils';
@@ -17,7 +17,7 @@ import { environment } from '../../../../environments/environment';
 })
 export class EpisodeComponent implements OnInit {
 
-  constructor(private changeDetectorRef: ChangeDetectorRef, private zone: NgZone) {
+  constructor(private changeDetectorRef: ChangeDetectorRef) {
   }
 
   player = new Audio();
@@ -33,7 +33,7 @@ export class EpisodeComponent implements OnInit {
   isLoading = false;
 
   ngOnInit(): void {
-    this.player.addEventListener('timeupdate', (currentTime) => {
+    this.player.addEventListener('timeupdate', () => {
       this.positionRelative = this.player.currentTime / this.player.duration;
       this.changeDetectorRef.detectChanges();
     });
