@@ -14,7 +14,7 @@
           <div class="episode-naming">
             <div class="title-container row">
               <div class="title">{{ data?.episode.title }}</div>
-              <a [href]="data?.episode.youTubeUrl" *ngIf="data?.episode.youTubeUrl">
+              <a *ngIf="data?.episode.youTubeUrl" [href]="data?.episode.youTubeUrl" target="_blank">
                 <div class="yt-url"
                      *ngIf="data?.episode.youTubeUrl"
                      matTooltip="Diese Episode enthält einen YouTube-Link. Klicke, um auf YouTube weitergeleitet zu werden."
