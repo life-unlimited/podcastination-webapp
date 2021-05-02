@@ -143,6 +143,10 @@ $min-component-height: 75px;
   color: gray;
 }
 
+mat-icon {
+  overflow: hidden;
+}
+
 * {
   box-sizing: border-box;
   text-overflow: ellipsis;
