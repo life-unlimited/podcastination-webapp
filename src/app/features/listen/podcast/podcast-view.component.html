@@ -3,5 +3,5 @@
   <div class="subtitle" *ngIf="podcast.subtitle">{{ podcast.subtitle }}</div>
   <div></div>
   <p *ngIf="podcast.description">{{ podcast.description }}</p>
-  <app-podcast-content></app-podcast-content>
+  <app-podcast-content [podcastId]="podcast.id"></app-podcast-content>
 </div>
