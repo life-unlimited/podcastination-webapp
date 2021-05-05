@@ -1,32 +1,29 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { PodcastService } from '../../core/stores/podcasts/podcast.service';
-import { Subscription } from 'rxjs';
-import { ActivatedRoute } from '@angular/router';
-import { Podcast } from '../../core/models/podcast';
-import { Season } from '../../core/models/seasons';
-import { switchMap, tap } from 'rxjs/operators';
 import { SeasonService } from '../../core/stores/seasons/season.service';
+import { ActivatedRoute } from '@angular/router';
+import { Subscription } from 'rxjs';
+import { Podcast } from '../../core/models/podcast';
 
 /**
- * The component for embedding a podcast.
+ * View for embedding a podcast.
  *
  * @author Lennart Altenhof
  * @version 1.0
  */
 @Component({
-  selector: 'app-embed-podcast',
-  templateUrl: './embed-podcast.component.html',
-  styleUrls: ['./embed-podcast.component.css']
+  selector: 'app-embed-podcast-view',
+  templateUrl: './embed-podcast-view.component.html',
+  styleUrls: ['./embed-podcast-view.component.css']
 })
-export class EmbedPodcastComponent implements OnInit, OnDestroy {
+export class EmbedPodcastView implements OnInit, OnDestroy {
 
   constructor(private podcastService: PodcastService, private seasonService: SeasonService, private route: ActivatedRoute) {
   }
 
   private s: Subscription[] = [];
-  podcast: Podcast;
-  seasons: Season[];
   podcastKey: string;
+  podcast: Podcast;
 
   ngOnInit(): void {
     this.s.push(this.route.paramMap.subscribe(params => {
@@ -42,10 +39,7 @@ export class EmbedPodcastComponent implements OnInit, OnDestroy {
    * @private
    */
   private loadPodcast(key: string): void {
-    this.podcastService.getByKey(key).pipe(
-      tap(podcast => this.podcast = podcast),
-      switchMap((podcast: Podcast) => this.seasonService.getAllByPodcast(podcast.id))
-    ).subscribe(seasons => this.seasons = seasons);
+    this.podcastService.getByKey(key).subscribe(podcast => this.podcast = podcast);
   }
 
   ngOnDestroy(): void {

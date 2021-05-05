@@ -1,8 +1,8 @@
 import { SeasonComponent } from './season.component';
 import { createComponentFactory, Spectator } from '@ngneat/spectator';
-import { EmbedPodcastModule } from '../embed-podcast.module';
-import { Season } from '../../../core/models/seasons';
-import { EpisodeService } from '../../../core/stores/episodes/episode.service';
+import { PodcastContentModule } from '../podcast-content.module';
+import { Season } from '../../../models/seasons';
+import { EpisodeService } from '../../../stores/episodes/episode.service';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('SeasonComponent', () => {
@@ -10,7 +10,7 @@ describe('SeasonComponent', () => {
   let component: SeasonComponent;
   const createComponent = createComponentFactory({
     component: SeasonComponent,
-    imports: [EmbedPodcastModule, HttpClientTestingModule],
+    imports: [PodcastContentModule, HttpClientTestingModule],
     providers: [EpisodeService]
   });
   let season: Season;

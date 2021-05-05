@@ -1,8 +1,8 @@
 import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
-import { Episode } from '../../../core/models/episode';
-import { Season } from '../../../core/models/seasons';
-import { prettifyDuration } from '../../../core/utils/time-utils';
-import { environment } from '../../../../environments/environment';
+import { Episode } from '../../../models/episode';
+import { Season } from '../../../models/seasons';
+import { prettifyDuration } from '../../../utils/time-utils';
+import { environment } from '../../../../../environments/environment';
 
 /**
  * Episode row with integrated audio player.
@@ -11,7 +11,7 @@ import { environment } from '../../../../environments/environment';
  * @version 1.1
  */
 @Component({
-  selector: 'app-embed-podcast-episode',
+  selector: 'app-podcast-content-episode',
   templateUrl: './episode.component.html',
   styleUrls: ['./episode.component.scss']
 })

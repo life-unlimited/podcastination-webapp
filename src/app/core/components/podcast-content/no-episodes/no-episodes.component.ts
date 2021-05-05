@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-embed-podcast-no-episodes',
+  selector: 'app-podcast-content-no-episodes',
   templateUrl: './no-episodes.component.html',
   styleUrls: ['./no-episodes.component.css']
 })

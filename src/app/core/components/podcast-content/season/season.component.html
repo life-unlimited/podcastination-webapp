@@ -11,8 +11,8 @@
     </div>
   </div>
   <!--  Episodes-->
-  <app-embed-podcast-no-episodes *ngIf="episodes && episodes.length === 0"></app-embed-podcast-no-episodes>
-  <app-embed-podcast-episode *ngFor="let episode of episodes"
-                             [data]="{episode: episode, season: season}">
-  </app-embed-podcast-episode>
+  <app-podcast-content-no-episodes *ngIf="episodes && episodes.length === 0"></app-podcast-content-no-episodes>
+  <app-podcast-content-episode *ngFor="let episode of episodes"
+                               [data]="{episode: episode, season: season}">
+  </app-podcast-content-episode>
 </div>

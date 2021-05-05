@@ -52,6 +52,16 @@ export class PodcastService {
   }
 
   /**
+   * Retrieves a podcast by it's given id.
+   *
+   * @param id The podcast id.
+   */
+  getById(id: number): Observable<Podcast> {
+    return this.http.get<PodcastNet>(`${ environment.apiUrl }/podcasts/${ id }`)
+      .pipe(map(mapFromPodcastNet));
+  }
+
+  /**
    * Retrieves a podcast by the given key.
    *
    * @param key The podcast key.

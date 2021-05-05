@@ -1,10 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Season } from '../../../core/models/seasons';
-import { EpisodeService } from '../../../core/stores/episodes/episode.service';
-import { Episode } from '../../../core/models/episode';
+import { Season } from '../../../models/seasons';
+import { EpisodeService } from '../../../stores/episodes/episode.service';
+import { Episode } from '../../../models/episode';
 
 @Component({
-  selector: 'app-embed-podcast-season',
+  selector: 'app-podcast-content-season',
   templateUrl: './season.component.html',
   styleUrls: ['./season.component.scss']
 })

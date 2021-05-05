@@ -1,15 +1,15 @@
 import { EpisodeComponent } from './episode.component';
 import { createComponentFactory, Spectator } from '@ngneat/spectator';
-import { EmbedPodcastModule } from '../embed-podcast.module';
-import { Episode } from '../../../core/models/episode';
-import { Season } from '../../../core/models/seasons';
+import { PodcastContentModule } from '../podcast-content.module';
+import { Episode } from '../../../models/episode';
+import { Season } from '../../../models/seasons';
 
 describe('EpisodeComponent', () => {
   let spectator: Spectator<EpisodeComponent>;
   let component: EpisodeComponent;
   const createComponent = createComponentFactory({
     component: EpisodeComponent,
-    imports: [EmbedPodcastModule],
+    imports: [PodcastContentModule],
   });
   let episode: Episode;
   let season: Season;
