@@ -37,6 +37,12 @@ function mapFromPodcastNet(net: PodcastNet): Podcast {
   };
 }
 
+/**
+ * Service for querying podcasts in general.
+ *
+ * @author Lennart Altenhof
+ * @version 1.1
+ */
 @Injectable({
   providedIn: 'root'
 })
@@ -45,9 +51,23 @@ export class PodcastService {
   constructor(private http: HttpClient) {
   }
 
+  /**
+   * Retrieves a podcast by the given key.
+   *
+   * @param key The podcast key.
+   */
   getByKey(key: string): Observable<Podcast> {
     return this.http.get<PodcastNet>(`${ environment.apiUrl }/podcasts/by-key/${ key }`)
       .pipe(map(mapFromPodcastNet));
+  }
+
+  /**
+   * Retrieves all available podcasts.
+   */
+  getAll(): Observable<Podcast[]> {
+    return this.http.get<PodcastNet[]>(`${ environment.apiUrl }/podcasts`).pipe(
+      map(result => result.map(mapFromPodcastNet))
+    );
   }
 
 }

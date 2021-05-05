@@ -1,0 +1,11 @@
+<div class="content clickable" *ngIf="podcast" [routerLink]="['podcasts', { id: podcast.id }]">
+  <div class="info row">
+    <div>
+      <div class="title">{{ podcast.title }}</div>
+      <div class="subtitle">{{ podcast.subtitle }}</div>
+    </div>
+    <div>
+      <mat-icon>chevron_right</mat-icon>
+    </div>
+  </div>
+</div>

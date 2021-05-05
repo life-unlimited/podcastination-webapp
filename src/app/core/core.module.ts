@@ -4,12 +4,14 @@ import { AngularMaterialModule } from './utils/angular-material.module';
 import { EmbedComponent } from './components/embed/embed.component';
 import { RouterModule } from '@angular/router';
 import { NotFoundComponent } from './components/not-found/not-found.component';
+import { HomeLayoutComponent } from './components/home-layout/home-layout.component';
 
 
 @NgModule({
   declarations: [
     EmbedComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    HomeLayoutComponent
   ],
   imports: [
     CommonModule,
