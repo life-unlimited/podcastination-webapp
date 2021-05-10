@@ -1,6 +1,13 @@
 <div class="content" *ngIf="podcast">
-  <div class="title">{{ podcast.title }}</div>
-  <div class="subtitle" *ngIf="podcast.subtitle">{{ podcast.subtitle }}</div>
+  <div class="header">
+    <div>
+      <div class="title">{{ podcast.title }}</div>
+      <div class="subtitle" *ngIf="podcast.subtitle">{{ podcast.subtitle }}</div>
+    </div>
+    <div>
+      <button mat-flat-button [routerLink]="'/podcasts'">Zurück zur Übersicht</button>
+    </div>
+  </div>
   <div></div>
   <p *ngIf="podcast.description">{{ podcast.description }}</p>
   <app-podcast-content [podcastId]="podcast.id"></app-podcast-content>

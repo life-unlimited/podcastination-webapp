@@ -4,7 +4,7 @@ import { SeasonService } from '../../../core/stores/seasons/season.service';
 import { EpisodeService } from '../../../core/stores/episodes/episode.service';
 import { ActivatedRoute } from '@angular/router';
 import { forkJoin, of, Subscription } from 'rxjs';
-import { switchMap, tap } from 'rxjs/operators';
+import { filter, switchMap, tap } from 'rxjs/operators';
 import { Podcast } from '../../../core/models/podcast';
 import { Season } from '../../../core/models/seasons';
 import { Episode } from '../../../core/models/episode';
@@ -28,10 +28,11 @@ export class PodcastView implements OnInit, OnDestroy {
   ngOnInit(): void {
     // Subscribe to param changes in order to update the podcast.
     this.s.push(this.route.paramMap.pipe(
+      filter(params => !isNaN(+params.get('id'))),
       // Clear podcast and seasons.
       tap(() => {
         this.podcast = undefined;
-        this.seasons = undefined;
+        this.seasons = [];
       }),
       // Retrieve the podcast.
       switchMap(params => this.podcastService.getById(+params.get('id'))),

@@ -5,6 +5,13 @@
   width: available;
 }
 
+.header {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  width: 100%;
+}
+
 .title {
   font-size: 1.5em;
   font-weight: 500;
