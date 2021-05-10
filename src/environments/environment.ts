@@ -1,5 +1,5 @@
 export const environment = {
   production: false,
-  apiUrl: 'http://localhost:8000',
-  staticUrl: 'http://localhost:8000/static'
+  apiUrl: 'https://podcast.lu-church.de/s',
+  staticUrl: 'https://podcast.lu-church.de/s/static'
 };

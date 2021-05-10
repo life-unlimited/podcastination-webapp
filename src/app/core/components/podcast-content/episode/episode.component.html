@@ -1,0 +1,66 @@
+<div class="container row" *ngIf="data">
+  <div class="playback-controls">
+    <div (click)="onPlayClicked($event)" *ngIf="!isPlaying" class="playback-control clickable">
+      <mat-icon>play_arrow</mat-icon>
+    </div>
+    <div (click)="onPauseClicked($event)" *ngIf="isPlaying" class="playback-control clickable">
+      <mat-icon>pause_arrow</mat-icon>
+    </div>
+  </div>
+  <div class="content-container gradient-bg row">
+    <div class="content">
+      <div class="episode-information row">
+        <div class="info-column info-left">
+          <div class="episode-naming">
+            <div class="title-container row">
+              <div class="title">{{ data?.episode.title }}</div>
+              <a *ngIf="data?.episode.youTubeUrl" [href]="data?.episode.youTubeUrl" target="_blank">
+                <div class="yt-url"
+                     *ngIf="data?.episode.youTubeUrl"
+                     matTooltip="Diese Episode enthält einen YouTube-Link. Klicke, um auf YouTube weitergeleitet zu werden."
+                     matTooltipShowDelay=500
+                >
+                  <mat-icon>ondemand_video</mat-icon>
+                </div>
+              </a>
+            </div>
+            <div class="subtitle">{{ data?.episode.subtitle }}</div>
+          </div>
+          <div class="misc-info-row row">
+            <div class="author">{{ data?.episode.author }}</div>
+            <div><span>&#183;</span></div>
+            <div class="date">{{ data?.episode.date }}</div>
+            <div><span>&#183;</span></div>
+            <div class="download">
+              <a [href]="getFullMp3Url()"
+                 class="clickable overlay-control"
+                 download>
+                Download</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="info-column info-right">
+          <div
+            ellipsis
+            [ellipsis-content]="data?.episode.description"
+            [matTooltip]="data?.episode.description"
+            matTooltipShowDelay=1000
+            class="description overlay-control">
+            {{ data?.episode.description }}
+          </div>
+          <div class="duration">
+            <mat-progress-bar *ngIf="isLoading" mode="indeterminate"></mat-progress-bar>
+            <div *ngIf="!isLoading">
+              <ng-container *ngIf="!stopped">{{ prettifyDuration(player.currentTime * 1000) }} /</ng-container>
+              {{ prettifyDuration((player.duration || data.episode.mp3Length) * 1000) }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="seekbar" (mousedown)="onSeekbarClicked($event.offsetX, seekbar.offsetWidth)" #seekbar></div>
+    <div class="current-time-bar" [ngStyle]="{ width: positionRelative * 100 + '%' }"></div>
+  </div>
+
+</div>

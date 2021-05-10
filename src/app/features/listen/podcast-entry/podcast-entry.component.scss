@@ -1,0 +1,34 @@
+@import "src/styles/misc";
+
+.content {
+  background-color: white;
+  padding: 10px;
+}
+
+.content:hover {
+  background-color: whitesmoke;
+}
+
+.info {
+  justify-content: space-between;
+  align-items: center;
+}
+
+.info > div {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.info:first-child {
+  justify-items: flex-start;
+}
+
+.info:last-child {
+  justify-items: flex-end;
+}
+
+.title {
+  font-size: 1.2em;
+  font-weight: 500;
+}

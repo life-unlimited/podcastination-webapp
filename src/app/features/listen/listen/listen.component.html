@@ -1,0 +1,7 @@
+<div class="content">
+  <h1>Podcasts der Life unlimited church</h1>
+  <p>Hier findest du alle Podcasts der Life unlimited church. Wähle einfach einen Podcast an, um zu den Episoden zu gelangen.</p>
+  <div class="podcast-list" *ngIf="podcasts">
+    <app-listen-podcast-entry *ngFor="let pdc of podcasts" [podcast]="pdc"></app-listen-podcast-entry>
+  </div>
+</div>
