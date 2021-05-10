@@ -1,22 +1,21 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { HomeLayoutComponent } from './home-layout.component';
+import { createRoutingFactory, SpectatorRouting } from '@ngneat/spectator';
+import { AppRoutes } from '../../constants/routes';
+import { CoreModule } from '../../core.module';
 
-describe('HomeComponent', () => {
+describe('HomeLayoutComponent', () => {
+  let spectator: SpectatorRouting<HomeLayoutComponent>;
   let component: HomeLayoutComponent;
-  let fixture: ComponentFixture<HomeLayoutComponent>;
-
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      declarations: [ HomeLayoutComponent ]
-    })
-    .compileComponents();
+  const createComponent = createRoutingFactory({
+    component: HomeLayoutComponent,
+    imports: [CoreModule],
+    routes: AppRoutes,
+    stubsEnabled: false
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(HomeLayoutComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
+    spectator = createComponent();
+    component = spectator.component;
   });
 
   it('should create', () => {

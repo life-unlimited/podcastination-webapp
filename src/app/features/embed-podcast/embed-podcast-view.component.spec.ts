@@ -1,22 +1,22 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { EmbedPodcastView } from './embed-podcast-view.component';
+import { createRoutingFactory, SpectatorRouting } from '@ngneat/spectator';
+import { EmbedPodcastModule } from './embed-podcast.module';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { AppRoutes } from '../../core/constants/routes';
 
 describe('EmbedPodcastView', () => {
+  let spectator: SpectatorRouting<EmbedPodcastView>;
   let component: EmbedPodcastView;
-  let fixture: ComponentFixture<EmbedPodcastView>;
-
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      declarations: [EmbedPodcastView]
-    })
-      .compileComponents();
+  const createComponent = createRoutingFactory({
+    component: EmbedPodcastView,
+    imports: [EmbedPodcastModule, HttpClientTestingModule],
+    routes: AppRoutes,
+    stubsEnabled: false
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(EmbedPodcastView);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
+    spectator = createComponent();
+    component = spectator.component;
   });
 
   it('should create', () => {
