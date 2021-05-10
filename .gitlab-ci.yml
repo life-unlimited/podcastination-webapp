@@ -37,7 +37,7 @@ build:
     - npm i --cache .npm --prefer-offline
     - ng build --prod
   artifacts:
-    expire_in: 7 day
+    expire_in: 7 days
     paths:
       - dist/
   tags:
@@ -62,7 +62,7 @@ test:karma:
   artifacts:
     paths:
       - coverage/
-    expire_in: 30 day
+    expire_in: 7 days
   tags:
     - docker
   only:

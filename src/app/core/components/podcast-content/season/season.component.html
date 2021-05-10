@@ -1,0 +1,18 @@
+<div class="content" *ngIf="season">
+  <!--  Season details-->
+  <div class="season-container">
+    <div class="season gradient-bg"
+         *ngIf="season"
+         [matTooltip]="season.description"
+         [matTooltipDisabled]="!season.description"
+         matTooltipShowDelay=500>
+      <span class="season-title">{{ season.title }}</span>
+      <span class="season-subtitle" *ngIf="season.subtitle"> - {{ season.subtitle }}</span>
+    </div>
+  </div>
+  <!--  Episodes-->
+  <app-podcast-content-no-episodes *ngIf="episodes && episodes.length === 0"></app-podcast-content-no-episodes>
+  <app-podcast-content-episode *ngFor="let episode of episodes"
+                               [data]="{episode: episode, season: season}">
+  </app-podcast-content-episode>
+</div>

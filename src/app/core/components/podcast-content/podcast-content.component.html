@@ -1,0 +1,4 @@
+<div class="content" *ngIf="podcast">
+  <app-podcast-content-no-seasons *ngIf="seasons && seasons.length === 0"></app-podcast-content-no-seasons>
+  <app-podcast-content-season *ngFor="let season of seasons" [season]="season"></app-podcast-content-season>
+</div>

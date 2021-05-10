@@ -1,0 +1,158 @@
+@import "../../../../../styles/misc";
+
+$min-component-height: 75px;
+
+.overlay-control {
+  pointer-events: all;
+}
+
+.container {
+  display: flex;
+  flex-direction: row;
+  min-height: $min-component-height;
+  width: 100%;
+  z-index: 1;
+}
+
+.current-time-bar {
+  background-color: lightgray;
+  min-height: $min-component-height;
+  height: 100%;
+  position: absolute;
+  z-index: 10;
+}
+
+.content-container {
+  min-height: $min-component-height;
+  position: relative;
+  flex-grow: 1;
+}
+
+.content {
+  width: 100%;
+  z-index: 30;
+  pointer-events: none;
+}
+
+.seekbar {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  z-index: 20;
+}
+
+.playback-controls {
+  z-index: 100;
+  display: flex;
+  background-color: black;
+  align-items: center;
+}
+
+.playback-control {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  padding: 5px;
+}
+
+.playback-control mat-icon {
+  color: white;
+}
+
+.episode-information {
+  justify-content: space-between;
+  height: 100%;
+  gap: 10%;
+  width: 100%;
+}
+
+.episode-information > * {
+  min-width: 0;
+}
+
+.info-left {
+  //max-width: 75%;
+  flex-shrink: 500;
+}
+
+.info-right {
+  align-content: end;
+  align-items: flex-end;
+  max-width: 450px;
+}
+
+.info-column {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  padding: 5px 10px;
+}
+
+.title-container {
+  gap: 10px;
+  align-items: center;
+}
+
+.title {
+  font-size: 1.3em;
+  font-weight: 500;
+}
+
+.yt-url {
+  @extend .overlay-control;
+  display: flex;
+  align-items: center;
+}
+
+.yt-url mat-icon {
+  font-size: 1.4em;
+  width: 1em;
+  height: 1em;
+}
+
+.misc-info-row {
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+.description {
+  color: gray;
+  text-align: end;
+  height: 3em;
+}
+
+.duration {
+  display: flex;
+  justify-content: flex-end;
+  min-width: 6em;
+}
+
+.duration mat-progress-bar {
+  height: 5px;
+  width: 100px;
+  margin: 7px 0;
+}
+
+.author {
+  font-style: italic;
+  white-space: nowrap;
+}
+
+.download {
+  color: gray;
+}
+
+mat-icon {
+  overflow: hidden;
+}
+
+* {
+  box-sizing: border-box;
+  text-overflow: ellipsis;
+}
+
+a {
+  color: inherit;
+  text-decoration: inherit;
+}
