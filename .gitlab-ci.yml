@@ -4,6 +4,7 @@ variables:
 stages:
   - install
   - build_and_test
+  - release
   - deploy
 
 cache: &global_cache
@@ -67,6 +68,22 @@ test:karma:
     - docker
   only:
     - master
+    - develop
+  cache:
+    <<: *global_cache
+
+release:
+  stage: release
+  image: node
+  needs:
+    - job: install
+    - job: test:karma
+  before_script:
+    - echo “preparing environment”
+    - npm install @semantic-release/gitlab
+  script:
+    - npx semantic-release
+  only:
     - develop
   cache:
     <<: *global_cache
