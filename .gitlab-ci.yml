@@ -81,7 +81,7 @@ release:
     - job: build
   before_script:
     - echo “preparing environment”
-    - npm install -g semantic-release @semantic-release/gitlab
+    - npm install -g @semantic-release/gitlab
   script:
     - semantic-release --branches develop
   only:
