@@ -1,5 +1,5 @@
 import { HomeLayoutComponent } from './home-layout.component';
-import { createRoutingFactory, SpectatorRouting } from '@ngneat/spectator';
+import { byText, createRoutingFactory, SpectatorRouting } from '@ngneat/spectator';
 import { AppRoutes } from '../../constants/routes';
 import { CoreModule } from '../../core.module';
 
@@ -20,5 +20,11 @@ describe('HomeLayoutComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should display a link for impressum', () => {
+    const elem = spectator.query(byText('Impressum', { selector: 'a' }));
+    expect(elem).toBeTruthy();
+    expect(elem).toHaveAttribute('href', 'https://www.life-unlimited.church/impressum');
   });
 });
