@@ -1,4 +1,5 @@
 @import "../../../../../styles/misc";
+@import url("https://fonts.googleapis.com/icon?family=Material+Icons|Material+Icons+Outlined");
 
 $min-component-height: 75px;
 
@@ -91,7 +92,7 @@ $min-component-height: 75px;
 
 .title-container {
   gap: 10px;
-  align-items: center;
+  align-items: flex-start;
 }
 
 .title {
@@ -99,13 +100,17 @@ $min-component-height: 75px;
   font-weight: 500;
 }
 
-.yt-url {
+.title-container .icons {
+  gap: 3px;
+}
+
+.title-container .icons > a > div {
   @extend .overlay-control;
   display: flex;
   align-items: center;
 }
 
-.yt-url mat-icon {
+.title-container .icons mat-icon {
   font-size: 1.4em;
   width: 1em;
   height: 1em;
