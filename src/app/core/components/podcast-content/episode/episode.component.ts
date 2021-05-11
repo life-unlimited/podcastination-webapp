@@ -24,6 +24,7 @@ export class EpisodeComponent implements OnInit {
   stopped = true;
   positionRelative = 0;
   isPlaying = false;
+  staticUrl = environment.staticUrl;
 
   @Input() data: {
     episode: Episode,
