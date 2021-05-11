@@ -6,4 +6,4 @@ plugins:
   - "@semantic-release/git"
   - "@semantic-release/gitlab"
 branches:
-  - "develop"
+  - "master"

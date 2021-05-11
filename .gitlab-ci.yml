@@ -3,8 +3,9 @@ variables:
 
 stages:
   - install
-  - build_and_test
+  - test
   - release
+  - build
   - deploy
 
 cache: &global_cache
@@ -27,30 +28,8 @@ install:
   tags:
     - docker
 
-build:
-  stage: build_and_test
-  image: trion/ng-cli-karma:${ANGULAR_CLI_VERSION}
-  needs:
-    - job: install
-      artifacts: true
-  allow_failure: false
-  script:
-    - npm i --cache .npm --prefer-offline
-    - ng build --prod
-  artifacts:
-    expire_in: 7 days
-    paths:
-      - dist/
-  tags:
-    - docker
-  only:
-    - master
-    - develop
-  cache:
-    <<: *global_cache
-
 test:karma:
-  stage: build_and_test
+  stage: test
   image: trion/ng-cli-karma:${ANGULAR_CLI_VERSION}
   needs:
     - job: install
@@ -78,13 +57,37 @@ release:
   needs:
     - job: install
     - job: test:karma
-    - job: build
+  allow_failure: false
   before_script:
     - npm install @semantic-release/changelog @semantic-release/npm @semantic-release/git @semantic-release/gitlab
   script:
     - npx semantic-release
+  tags:
+    - docker
   only:
-    - develop
+    - master
+
+build:
+  stage: build
+  image: trion/ng-cli-karma:${ANGULAR_CLI_VERSION}
+  needs:
+    - job: install
+      artifacts: true
+    - job: release
+  allow_failure: false
+  script:
+    - npm i --cache .npm --prefer-offline
+    - ng build --prod
+  artifacts:
+    expire_in: 7 days
+    paths:
+      - dist/
+  tags:
+    - docker
+  only:
+    - master
+  cache:
+    <<: *global_cache
 
 deploy:
   stage: deploy
@@ -94,7 +97,7 @@ deploy:
       artifacts: true
     - job: build
       artifacts: true
-    - job: test:karma
+    - job: release
   allow_failure: false
   script:
     - apk add --no-cache rsync openssh
