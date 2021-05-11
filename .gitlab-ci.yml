@@ -78,11 +78,12 @@ release:
   needs:
     - job: install
     - job: test:karma
+    - job: build
   before_script:
     - echo “preparing environment”
-    - npm install @semantic-release/gitlab
+    - npm install -g semantic-release @semantic-release/gitlab
   script:
-    - npx semantic-release
+    - semantic-release --branches develop
   only:
     - develop
   cache:
