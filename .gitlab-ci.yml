@@ -74,20 +74,17 @@ test:karma:
 
 release:
   stage: release
-  image: node
+  image: node:13
   needs:
     - job: install
     - job: test:karma
     - job: build
   before_script:
-    - echo “preparing environment”
-    - npm install -g @semantic-release/gitlab
+    - npm install @semantic-release/gitlab
   script:
-    - semantic-release --branches develop
+    - npx semantic-release
   only:
     - develop
-  cache:
-    <<: *global_cache
 
 deploy:
   stage: deploy
