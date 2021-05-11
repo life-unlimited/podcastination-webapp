@@ -39,7 +39,12 @@ footer {
   color: lightgray;
   display: flex;
   flex-direction: row;
+  gap: 5px;
   justify-content: center;
   align-items: center;
   margin-top: 20px;
+}
+
+footer * {
+  color: lightgray;
 }
