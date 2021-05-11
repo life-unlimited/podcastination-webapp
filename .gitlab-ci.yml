@@ -80,7 +80,7 @@ release:
     - job: test:karma
     - job: build
   before_script:
-    - npm install @semantic-release/changelog @semantic-release/git @semantic-release/gitlab
+    - npm install @semantic-release/changelog @semantic-release/npm @semantic-release/git @semantic-release/gitlab
   script:
     - npx semantic-release
   only:
