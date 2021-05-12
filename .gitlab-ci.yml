@@ -22,9 +22,6 @@ install:
   cache:
     <<: *global_cache
     policy: push
-  only:
-    - master
-    - develop
   tags:
     - docker
 
@@ -45,9 +42,6 @@ test:karma:
     expire_in: 7 days
   tags:
     - docker
-  only:
-    - master
-    - develop
   cache:
     <<: *global_cache
 
