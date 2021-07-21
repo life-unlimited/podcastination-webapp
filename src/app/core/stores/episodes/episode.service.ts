@@ -20,6 +20,7 @@ interface EpisodeNet {
   num: number;
   yt_url: string;
   is_available: boolean;
+  pdf_location: string;
 }
 
 function mapFromEpisodeNet(net: EpisodeNet): Episode {
@@ -29,6 +30,7 @@ function mapFromEpisodeNet(net: EpisodeNet): Episode {
     description: net.description,
     id: net.id,
     imageLocation: net.image_location,
+    pdfLocation: net.pdf_location,
     mp3Length: net.mp3_length,
     mp3Location: net.mp3_location,
     num: net.num,

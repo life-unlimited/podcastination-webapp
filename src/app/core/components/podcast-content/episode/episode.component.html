@@ -14,15 +14,25 @@
           <div class="episode-naming">
             <div class="title-container row">
               <div class="title">{{ data?.episode.title }}</div>
-              <a *ngIf="data?.episode.youTubeUrl" [href]="data?.episode.youTubeUrl" target="_blank">
-                <div class="yt-url"
-                     *ngIf="data?.episode.youTubeUrl"
-                     matTooltip="Diese Episode enthält einen YouTube-Link. Klicke, um auf YouTube weitergeleitet zu werden."
-                     matTooltipShowDelay=500
-                >
-                  <mat-icon>ondemand_video</mat-icon>
-                </div>
-              </a>
+              <div class="icons row">
+                <a *ngIf="data?.episode.youTubeUrl" [href]="data?.episode.youTubeUrl" target="_blank">
+                  <div class="yt-url"
+                       matTooltip="Diese Episode enthält einen YouTube-Link. Klicke, um auf YouTube weitergeleitet zu werden."
+                       matTooltipShowDelay=500
+                  >
+                    <mat-icon>ondemand_video</mat-icon>
+                  </div>
+                </a>
+                <a *ngIf="data?.episode.pdfLocation" [href]="staticUrl + '/' + data?.episode.pdfLocation"
+                   target="_blank">
+                  <div class="yt-url"
+                       matTooltip="Diese Episode enthält einen PDF-Anhang. In den meisten Fällen handelt es sich hierbei um eine Präsentation. Klicke, um den Anhang zu öffnen."
+                       matTooltipShowDelay=500
+                  >
+                    <mat-icon class="material-icons-outlined">picture_as_pdf</mat-icon>
+                  </div>
+                </a>
+              </div>
             </div>
             <div class="subtitle">{{ data?.episode.subtitle }}</div>
           </div>

@@ -12,6 +12,7 @@ export interface Episode {
   author: string;
   description: string;
   imageLocation: string;
+  pdfLocation: string;
   mp3Location: string;
   mp3Length: number;
   seasonId: number;

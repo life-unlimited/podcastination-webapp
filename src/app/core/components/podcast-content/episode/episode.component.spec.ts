@@ -28,6 +28,7 @@ describe('EpisodeComponent', () => {
       seasonId: 3,
       num: 3,
       youTubeUrl: 'https://youtube.com/blabla-ich-bin-ein-video',
+      pdfLocation: '/1/blablabla/die-datei.pdf'
     };
     season = {
       id: 1,
