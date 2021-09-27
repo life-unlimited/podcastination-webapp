@@ -5,6 +5,8 @@
 For general information regarding _podcastination_ have a look [here](https://github.com/life-unlimited/podcastination-server).
 This README only provides information regarding installation of the webapp.
 
+**DISCLAIMER**: This project is NOT TO BE USED by anyone without permission. The reason for this is hardcoded branding as well as hardlinked Impressum. If you want to use this for yourself, contact us first!
+
 ## Installation
 
 Currently, there is no real binary or anything like that. We simply build the webapp with Angular and deploy it for
