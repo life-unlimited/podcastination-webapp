@@ -2,7 +2,7 @@
 
 [![Angular](https://github.com/life-unlimited/podcastination-webapp/actions/workflows/angular.yml/badge.svg?branch=master)](https://github.com/life-unlimited/podcastination-webapp/actions/workflows/angular.yml)
 
-For general information regarding _podcastination_ have a look [here](https://github.com/life-unlimited/peppa-server).
+For general information regarding _podcastination_ have a look [here](https://github.com/life-unlimited/podcastination-server).
 This README only provides information regarding installation of the webapp.
 
 ## Installation
